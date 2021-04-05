@@ -3,6 +3,5 @@ lib/
 lib64/
 *.cfg
 share/
-*/__pycache__
 *.pyc
 __pycache__
