@@ -3,3 +3,4 @@ lib/
 lib64/
 *.cfg
 share/
+*/__pycache__
