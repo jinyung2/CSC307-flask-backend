@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-app = Flask('helloWorld')
+app = Flask('userInfo')
 
 users = {
     'users_list':
@@ -49,7 +49,7 @@ def get_users():
                 if user['name'] == search_username and user['job'] == search_job:
                     subdict['users_list'].append(user)
             return subdict
-        if search_username:
+        elif search_username:
             subdict = {'users_list': []}
             for user in users['users_list']:
                 if user['name'] == search_username:
