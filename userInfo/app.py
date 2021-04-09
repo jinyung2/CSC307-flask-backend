@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import random
+import string
 
 app = Flask('userInfo')
 CORS(app)
@@ -35,6 +37,8 @@ users = {
     ]
 }
 
+def id_gen():
+    return "".join(random.choice(string.ascii_lowercase) for x in range(3)) + "".join(random.choice(string.digits) for x in range(3))
 
 @app.route('/')
 def hello_world():
@@ -61,9 +65,10 @@ def get_users():
         return users
     elif request.method == 'POST':
         userToAdd = request.get_json()
+        userToAdd['id'] = id_gen()
         users['users_list'].append(userToAdd)
-        resp = jsonify(success=True)
-        resp.status_code = 200
+        resp = jsonify(userToAdd)
+        resp.status_code = 201
         return resp
 
 
@@ -79,8 +84,8 @@ def get_user(id):
             for user in users['users_list']:
                 if user['id'] == id:
                     users['users_list'].remove(user)
-                    resp = jsonify(success=True)
-                    resp.status_code = 200
+                    resp = jsonify()
+                    resp.status_code = 204
                     return resp
             resp = jsonify(success=False)
             resp.status_code = 404
